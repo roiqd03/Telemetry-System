@@ -19,7 +19,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Src\ITrackerAsset.cpp" />
+    <ClCompile Include="..\Src\Persistence.cpp" />
     <ClCompile Include="..\Src\main.cpp" />
+    <ClCompile Include="..\Src\Tracker.cpp" />
+    <ClCompile Include="..\Src\TrackerEvent.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Src\ITrackerAsset.h" />
+    <ClInclude Include="..\Src\Persistence.h" />
+    <ClInclude Include="..\Src\ISerializer.h" />
+    <ClInclude Include="..\Src\Tracker.h" />
+    <ClInclude Include="..\Src\TrackerEvent.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
