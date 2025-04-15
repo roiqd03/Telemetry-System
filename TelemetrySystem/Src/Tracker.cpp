@@ -14,13 +14,23 @@ bool Tracker::init(const std::string& gameID)
 	system("wmic bios get serialnumber > sn.txt");
 	wchar_t playerID[PLAYER_ID_LENGTH];
 
-	FILE* fp;
-	fopen_s(&fp, "sn.txt", "r, ccs=UTF-8");
-	fgetws(playerID, PLAYER_ID_LENGTH * 2, fp); // linea no relevante
+	FILE* fp = nullptr;
+	if (fopen_s(&fp, "sn.txt", "r, ccs=UTF-8") != 0) {
+		remove("sn.txt");
+		return false;
+	}
+	fgetws(playerID, PLAYER_ID_LENGTH, fp); // linea no relevante
 	fgetws(playerID, PLAYER_ID_LENGTH, fp); // numero de serie
 
-	// borramos el archivo
+	// Antes de cerrar, compruebo si hubo algun error
+	if (ferror(fp) != 0) {
+		fclose(fp);
+		remove("sn.txt");
+		return false;
+	}
+	
 	fclose(fp);          
+	// borramos el archivo
 	remove("sn.txt");
 
 	std::string initialTimestamp = std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(

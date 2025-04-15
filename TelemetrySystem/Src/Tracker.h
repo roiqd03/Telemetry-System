@@ -7,7 +7,7 @@
 #include <wchar.h>
 #include <chrono>
 
-#define PLAYER_ID_LENGTH 16
+#define PLAYER_ID_LENGTH 64
 
 class TrackerEvent;
 class Persistence;
