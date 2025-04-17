@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Src\FilePersistence.cpp" />
     <ClCompile Include="..\Src\ITrackerAsset.cpp" />
     <ClCompile Include="..\Src\Persistence.cpp" />
     <ClCompile Include="..\Src\main.cpp" />
@@ -26,6 +27,7 @@
     <ClCompile Include="..\Src\TrackerEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Src\FilePersistence.h" />
     <ClInclude Include="..\Src\ITrackerAsset.h" />
     <ClInclude Include="..\Src\Persistence.h" />
     <ClInclude Include="..\Src\ISerializer.h" />
