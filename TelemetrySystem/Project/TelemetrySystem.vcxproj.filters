@@ -9,9 +9,8 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Archivos de recursos">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Serializers">
+      <UniqueIdentifier>{bea51be1-c5ad-47f1-a692-0159dd84d9c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,12 +32,12 @@
     <ClCompile Include="..\Src\FilePersistence.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\Serializers\JSONSerializer.cpp">
+      <Filter>Serializers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src\TrackerEvent.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\ISerializer.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\Src\Persistence.h">
@@ -52,6 +51,12 @@
     </ClInclude>
     <ClInclude Include="..\Src\FilePersistence.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\ISerializer.h">
+      <Filter>Serializers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Serializers\JSONSerializer.h">
+      <Filter>Serializers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

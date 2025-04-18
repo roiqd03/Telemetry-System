@@ -1,4 +1,5 @@
 #include "TrackerEvent.h"
+#include "ISerializer.h"
 
 TrackerEvent::TrackerEvent(const std::string& eventType)
 {
@@ -8,14 +9,8 @@ TrackerEvent::~TrackerEvent()
 {
 }
 
-const std::string TrackerEvent::ToCSV()
-{
-	return std::string();
-}
+const std::string serialize(ISerializer* serializer) {
 
-const std::string TrackerEvent::ToJson()
-{
-	return std::string();
 }
 
 void TrackerEvent::SetCommonProperties(int timestamp, const std::string& gameID, const std::string& playerID, const std::string& sessionID)
