@@ -2,32 +2,42 @@
 #define UAJ2425_G05_JSONSERIALIZER_H
 
 #include "../ISerializer.h"
+#include <nlohmann/json.hpp>
+#include <deque>
 
 /// @brief Serializador a archivos JSON
 class JSONSerializer : public ISerializer {
-	 const std::string serializeInt8(int8_t number, const std::string& name) override;
+public:
+	void openObject(const std::string& name) override;
 
-	 const std::string serializeUint8(uint8_t number, const std::string& name) override;
+	void closeObject() override;
 
-	 const std::string serializeInt16(int16_t number, const std::string& name) override;
+private:
+	int _createdObjects = 0;
 
-	 const std::string serializeUint16(uint16_t number, const std::string& name) override;
+	std::deque<nlohmann::json> _objectStack;
 
-	 const std::string serializeInt32(int32_t number, const std::string& name) override;
+	void init(std::nullptr_t dummy, ...) override;
 
-	 const std::string serializeUint32(uint32_t number, const std::string& name) override;
+	void openEvent() override;
 
-	 const std::string serializeInt64(int64_t number, const std::string& name) override;
+	const std::string dump() override;
 
-	 const std::string serializeUint64(uint64_t number, const std::string& name) override;
+	void release() override;
 
-	 const std::string serializeFloat(float number, const std::string& name) override;
+	void serialize_impl(int number, const std::string& name) override;
 
-	 const std::string serializeDouble(double number, const std::string& name) override;
+	void serialize_impl(int64_t number, const std::string& name) override;
 
-	 const std::string serializeBool(bool value, const std::string& name) override;
+	void serialize_impl(float number, const std::string& name) override;
 
-	 const std::string serializeString(const std::string& value, const std::string& name) override;
+	void serialize_impl(double number, const std::string& name) override;
+
+	void serialize_impl(bool value, const std::string& name) override;
+
+	void serialize_impl(char value, const std::string& name) override;
+
+	void serialize_impl(const std::string& value, const std::string& name) override;
 };
 
 #endif

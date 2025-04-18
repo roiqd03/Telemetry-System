@@ -1,8 +1,17 @@
 #include "Persistence.h"
-
+#include "ISerializer.h"
+#include "Serializers/JSONSerializer.h"
 
 Persistence::Persistence() : eventsQueue(), mutex(), mutexCondition()
 {
+	_serializer = new JSONSerializer();
+	_serializer->init(nullptr);
+}
+
+Persistence::~Persistence() {
+	_serializer->release();
+	delete _serializer;
+	_serializer = nullptr;
 }
 
 void Persistence::QueueEvent(const TrackerEvent& trackerEvent)
@@ -24,8 +33,13 @@ void Persistence::ForceFlush()
 
 }
 
-const std::string Persistence::SuddentSerialization()
+const std::string Persistence::SuddenSerialization()
 {
-	//TODO imagino que habría que tener un objeto de tipo "Serializer" con el que serializar toda la información
-	return std::string();
+	int total = eventsQueue.size();
+	for (int i = 0; i < total; ++i) {
+		_serializer->openEvent();
+		eventsQueue.front().serialize(_serializer);
+		eventsQueue.pop();
+	}
+	return _serializer->dump();
 }

@@ -5,6 +5,6 @@
 void FilePersistence::Flush()
 {
 	std::ofstream outfile(fileDirectory, std::ios::trunc);
-	outfile << SuddentSerialization() << std::endl;
+	outfile << SuddenSerialization() << std::endl;
 	outfile.close();
 }

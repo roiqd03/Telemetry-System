@@ -14,8 +14,7 @@ public:
 	/// En el caso de los eventos que hereden de TrackerEvent, es necesario sobreescribir el metodo llamando a las funciones propias del serializador con los atributos que se quieran serializar, sin olvidar
 	/// primero una llamada a TrackerEvent::serialize() para serializar los atributos comunes.
 	/// @param serializer Serializador que se vaya a usar.
-	/// @return Cadena de texto con todos los atributos serializados en el formato del serializador proporcionado.
-	virtual const std::string serialize(ISerializer* serializer) const;
+	virtual void serialize(ISerializer* serializer);
 
 	void SetCommonProperties(int timestamp, const std::string& gameID, const std::string& playerID, const std::string& sessionID);
 protected:
