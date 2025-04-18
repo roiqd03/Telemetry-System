@@ -3,21 +3,23 @@
 
 FilePersistence::FilePersistence(std::string fileDirectory) : Persistence()
 {
+	_outfile = nullptr;
 	_fileDirectory = fileDirectory;
 }
 
 bool FilePersistence::Init()
 {
-	_outfile = std::ofstream(_fileDirectory, std::ios::app);
-	return true;
+	fopen_s(&_outfile, _fileDirectory.c_str(), "a");
+	return _outfile != nullptr;
 }
 
 void FilePersistence::Release()
 {
-	_outfile.close();
+	fclose(_outfile);
 }
 
 void FilePersistence::Flush()
 {
-	_outfile << SuddenSerialization() << std::endl;
+	std::string s = SuddenSerialization();
+	fwrite(s.c_str(), s.length(), 1, _outfile);
 }

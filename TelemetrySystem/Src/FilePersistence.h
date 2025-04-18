@@ -10,5 +10,5 @@ public:
 protected:
 	void Flush() override;
 	std::string _fileDirectory;
-	std::ofstream _outfile;
+	FILE* _outfile;
 };

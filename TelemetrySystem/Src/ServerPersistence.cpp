@@ -26,7 +26,7 @@ bool ServerPersistence::Init()
     hints.ai_protocol = IPPROTO_TCP;
 
     // Resolve the server address and port
-    int iResult = getaddrinfo(_IP.c_str(), _port.c_str(), &hints, &result);
+    iResult = getaddrinfo(_IP.c_str(), _port.c_str(), &hints, &result);
     if (iResult != 0) {
         WSACleanup();
         return false;
@@ -63,7 +63,7 @@ void ServerPersistence::Release()
 void ServerPersistence::Flush()
 {
     if (_socket == INVALID_SOCKET) return;
-    std::string s = SuddentSerialization();
+    std::string s = SuddenSerialization();
     int length = s.length();
     int iResult = send(_socket, s.c_str(), length, 0);
     if (iResult == -1) {
