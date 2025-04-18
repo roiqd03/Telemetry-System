@@ -35,6 +35,9 @@
     <ClCompile Include="..\Src\Serializers\JSONSerializer.cpp">
       <Filter>Serializers</Filter>
     </ClCompile>
+    <ClCompile Include="..\Src\ServerPersistence.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src\TrackerEvent.h">
@@ -57,6 +60,9 @@
     </ClInclude>
     <ClInclude Include="..\Src\Serializers\JSONSerializer.h">
       <Filter>Serializers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\ServerPersistence.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

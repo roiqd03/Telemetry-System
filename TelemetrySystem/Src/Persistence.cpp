@@ -30,7 +30,6 @@ void Persistence::ForceFlush()
 	std::lock_guard<std::mutex> lock(mutex);
 	Flush();
 	mutexCondition.notify_one();
-
 }
 
 const std::string Persistence::SuddenSerialization()

@@ -1,9 +1,14 @@
 #pragma once
 #include "Persistence.h"
+#include <iostream>
 class FilePersistence : public Persistence
 {
+public:
+	FilePersistence(std::string fileDirectory);
+	bool Init() override;
+	void Release() override;
 protected:
 	void Flush() override;
-	std::string fileDirectory;
+	std::string _fileDirectory;
+	std::ofstream _outfile;
 };
-
