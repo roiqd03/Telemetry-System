@@ -20,9 +20,9 @@ protected:
 	virtual void Flush() = 0;
 	std::queue<TrackerEvent> eventsQueue;
 	uint32_t numBeforeFlush = 100; // El número de eventos encolados antes de hacer el flush
+	ISerializer* _serializer = nullptr;
 private:
 	mutable std::mutex mutex;
 	std::condition_variable mutexCondition;
-	ISerializer* _serializer = nullptr;
 };
 

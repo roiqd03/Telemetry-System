@@ -1,5 +1,6 @@
 #include "FilePersistence.h"
 #include <fstream>
+#include "ISerializer.h"
 
 FilePersistence::FilePersistence(std::string fileDirectory) : Persistence()
 {
@@ -10,11 +11,16 @@ FilePersistence::FilePersistence(std::string fileDirectory) : Persistence()
 bool FilePersistence::Init()
 {
 	fopen_s(&_outfile, _fileDirectory.c_str(), "a");
-	return _outfile != nullptr;
+	if (_outfile == nullptr) return false;
+	std::string s = _serializer->init();
+	fwrite(s.c_str(), s.length(), 1, _outfile);
+	return true;
 }
 
 void FilePersistence::Release()
 {
+	std::string s = _serializer->release();
+	fwrite(s.c_str(), s.length(), 1, _outfile);
 	fclose(_outfile);
 }
 

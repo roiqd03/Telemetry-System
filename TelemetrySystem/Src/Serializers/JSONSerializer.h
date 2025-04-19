@@ -17,13 +17,13 @@ private:
 
 	std::deque<nlohmann::json> _objectStack;
 
-	void init(std::nullptr_t dummy, ...) override;
+	const std::string init() override;
 
 	void openEvent() override;
 
 	const std::string dump() override;
 
-	void release() override;
+	const std::string release() override;
 
 	void serialize_impl(int number, const std::string& name) override;
 

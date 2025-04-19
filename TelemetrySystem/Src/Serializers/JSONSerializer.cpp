@@ -1,15 +1,15 @@
 #include "JSONSerializer.h"
 
-void JSONSerializer::init(std::nullptr_t dummy, ...) {
-	// La inicializacion de JSON no necesita acceder a ningun parametro.
+const std::string JSONSerializer::init() {
+	return "[";
 }
 
 void JSONSerializer::openEvent() {
 	_objectStack.push_back(nlohmann::json::object());
 }
 
-void JSONSerializer::release() {
-
+const std::string JSONSerializer::release() {
+	return "]";
 }
 
 void JSONSerializer::openObject(const std::string& name) {
@@ -27,7 +27,7 @@ void JSONSerializer::closeObject() {
 }
 
 const std::string JSONSerializer::dump() {
-	std::string s;
+	std::string s = "";
 	for (int i = 0; i < _objectStack.size(); ++i) {
 		s += _objectStack[i].dump();
 		if (i != _objectStack.size() - 1) s += ",";

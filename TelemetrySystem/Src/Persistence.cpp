@@ -5,11 +5,9 @@
 Persistence::Persistence() : eventsQueue(), mutex(), mutexCondition()
 {
 	_serializer = new JSONSerializer();
-	_serializer->init(nullptr);
 }
 
 Persistence::~Persistence() {
-	_serializer->release();
 	delete _serializer;
 	_serializer = nullptr;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "FilePersistence.h"
 #include "Persistence.h"
 #include <type_traits>
 
@@ -7,6 +8,7 @@
 /// Define metodos para serializar todos los tipos de variables necesarias.
 /// Lo que ISerializer espera de las clases que hereden es que funcionen a modo de "tabla" de la siguiente manera:
 class ISerializer {
+	friend class FilePersistence;
 	friend class Persistence;
 public:
 
@@ -28,8 +30,7 @@ public:
 	virtual void closeObject() = 0;
 protected:
 	/// @brief Inicializa el serializador
-	/// @param dummy Este parametro sirve para poder acceder a los argumentos variadicos. Simplemente llamar usando (nullptr, arg1, arg2...).
-	virtual void init(std::nullptr_t dummy, ...) = 0;
+	virtual const std::string init() = 0;
 
 	/// @brief Inicializa un evento
 	virtual void openEvent() = 0;
@@ -39,7 +40,7 @@ protected:
 	virtual const std::string dump() = 0;
 
 	/// @brief Libera el serializador
-	virtual void release() = 0;
+	virtual const std::string release() = 0;
 
 	/// @brief Permite la serializacion de enteros
 	/// @param number Entero
