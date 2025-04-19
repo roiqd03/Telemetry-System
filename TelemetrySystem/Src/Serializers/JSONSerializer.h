@@ -12,12 +12,12 @@ public:
 
 	void closeObject() override;
 
+	void init(std::nullptr_t dummy, ...) override;
 private:
 	int _createdObjects = 0;
 
 	std::deque<nlohmann::json> _objectStack;
 
-	const std::string init(std::nullptr_t dummy, ...) override;
 
 	void openEvent() override;
 

@@ -1,7 +1,7 @@
 #include "CSVSerializer.h"
 #include <cstdarg>
 
-const std::string CSVSerializer::init(std::nullptr_t dummy, ...) {
+void CSVSerializer::init(std::nullptr_t dummy, ...) {
     va_list args;
     va_start(args, dummy);
     _totalHeaderNum = va_arg(args, int);
@@ -9,7 +9,7 @@ const std::string CSVSerializer::init(std::nullptr_t dummy, ...) {
 
     if(_totalHeaderNum > 0) _definedHeader = true;
 
-	return "";
+	_initialWrite = "";
 }
 
 void CSVSerializer::openEvent() {

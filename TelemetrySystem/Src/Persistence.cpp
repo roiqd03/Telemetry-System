@@ -5,7 +5,7 @@
 
 Persistence::Persistence() : eventsQueue(), mutex(), mutexCondition()
 {
-	_serializer = new JSONSerializer(nullptr);
+	//_serializer = new JSONSerializer(nullptr);
 	//_serializer = new CSVSerializer(nullptr, /*numero de elementos totales de la cabecera*/);
 }
 
@@ -30,6 +30,16 @@ void Persistence::ForceFlush()
 	std::lock_guard<std::mutex> lock(mutex);
 	Flush();
 	mutexCondition.notify_one();
+}
+
+void Persistence::SetSerializer(ISerializer* serializer)
+{
+	_serializer = serializer;
+}
+
+ISerializer* Persistence::GetSerializer()
+{
+	return _serializer;
 }
 
 const std::string Persistence::SuddenSerialization()

@@ -5,11 +5,11 @@
 #pragma comment (lib,"Ws2_32.lib")
 #define WINSOCK_DEPRECATED_NO_WARNINGS
 
-class ServerPersistence : Persistence
+class ServerPersistence : public Persistence
 {
 public:
-	ServerPersistence(std::string IP, std::string port);
-	bool Init() override;
+	ServerPersistence();
+	bool Init(std::string IP, std::string port);
 	void Release() override;
 protected:
 	void Flush() override;

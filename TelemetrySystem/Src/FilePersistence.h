@@ -4,8 +4,8 @@
 class FilePersistence : public Persistence
 {
 public:
-	FilePersistence(std::string fileDirectory);
-	bool Init() override;
+	FilePersistence();
+	bool Init(std::string fileDirectory);
 	void Release() override;
 protected:
 	void Flush() override;

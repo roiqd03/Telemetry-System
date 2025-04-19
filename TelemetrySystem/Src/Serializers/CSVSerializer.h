@@ -19,6 +19,9 @@ public:
 
 	void closeObject() override;
 
+	/// Init espera que se le pase un numero (int) con el numero de parametros totales de la cabecera que se van a utilizar.
+	/// Si se le pasa 0, automaticamente los calculara el, pero puede dar errores por lo anteriormente mencionado.
+	void init(std::nullptr_t dummy, ...) override;
 private:
 	int _currentEvent = -1;
 
@@ -34,9 +37,6 @@ private:
 
 	std::unordered_map<std::string, int> _headerOrder;
 
-	/// Init espera que se le pase un numero (int) con el numero de parametros totales de la cabecera que se van a utilizar.
-	/// Si se le pasa 0, automaticamente los calculara el, pero puede dar errores por lo anteriormente mencionado.
-	const std::string init(std::nullptr_t dummy, ...) override;
 
 	void openEvent() override;
 

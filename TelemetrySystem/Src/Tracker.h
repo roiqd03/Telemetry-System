@@ -11,15 +11,33 @@
 
 class TrackerEvent;
 class Persistence;
+class ISerializer;
 class ITrackerAsset;
+
+struct InitValues {
+	bool couldInitialize;
+	Persistence* persistence;
+	ISerializer* serializer;
+};
 
 class Tracker
 {
+public:
+	enum PersistenceTypes { P_FILE, P_SERVER };
+	enum SerializerTypes { S_JSON, S_CSV };
+
+	void TrackEvent(TrackerEvent* trackerEvent);
+	
+	static InitValues Init(const std::string& gameID, PersistenceTypes persistenceType, SerializerTypes serializerType);
+	static void End();
+	static Tracker* Instance();
 private:
 	Tracker() {};
-	bool init(const std::string& gameID);
+	InitValues init(const std::string& gameID, PersistenceTypes persistenceType, SerializerTypes serializerType);
 	void end();
-	
+	bool createPersistence(PersistenceTypes type);
+	bool createSerializer(SerializerTypes type);
+
 	Persistence* _persistence;
 	// A priori diria que esto no es necesario
 	std::list<ITrackerAsset*> _activeTrackers;
@@ -29,12 +47,7 @@ private:
 	std::string _sessionID;
 	const std::chrono::system_clock::time_point p1 = std::chrono::system_clock::now();
 
+
 	static Tracker* _instance;
-public:
-	void TrackEvent(TrackerEvent* trackerEvent);
-	
-	static bool Init(const std::string& gameID);
-	static void End();
-	static Tracker* Instance();
 };
 

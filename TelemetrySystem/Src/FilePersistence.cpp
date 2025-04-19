@@ -2,17 +2,17 @@
 #include <fstream>
 #include "ISerializer.h"
 
-FilePersistence::FilePersistence(std::string fileDirectory) : Persistence()
+FilePersistence::FilePersistence() : Persistence()
 {
 	_outfile = nullptr;
-	_fileDirectory = fileDirectory;
 }
 
-bool FilePersistence::Init()
+bool FilePersistence::Init(std::string fileDirectory)
 {
+	_fileDirectory = fileDirectory;
 	fopen_s(&_outfile, _fileDirectory.c_str(), "a");
 	if (_outfile == nullptr) return false;
-	std::string s = _serializer->init();
+	std::string s = _serializer->_initialWrite;
 	fwrite(s.c_str(), s.length(), 1, _outfile);
 	return true;
 }

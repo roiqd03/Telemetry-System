@@ -28,12 +28,14 @@ public:
 
 	/// @brief Cierra la ultima "tabla" abierta.
 	virtual void closeObject() = 0;
-protected:
+	
 	/// @brief Inicializa el serializador
 	/// @param dummy Es posible que haya serializadores que necesiten parametros de entrada, asi que,
 	/// como no sabemos que va a necesitar cada uno, los declaramos como argumentos variables. El primer
 	/// valor siempre tiene que ser nullptr (un valor dummy que no queremos).
-	virtual const std::string init(std::nullptr_t dummy, ...) = 0;
+	virtual void init(std::nullptr_t dummy, ...) = 0;
+protected:
+	std::string _initialWrite;
 
 	/// @brief Inicializa un evento
 	virtual void openEvent() = 0;

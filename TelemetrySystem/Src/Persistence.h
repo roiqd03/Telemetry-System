@@ -13,7 +13,8 @@ public:
 	~Persistence();
 	void QueueEvent(const TrackerEvent& trackerEvent);
 	void ForceFlush(); //Para forzar un flush en momentos concretos
-	virtual bool Init() = 0;
+	void SetSerializer(ISerializer* serializer);
+	ISerializer* GetSerializer();
 	virtual void Release() = 0;
 protected:
 	const std::string SuddenSerialization(); //Serializa de golpe todos los eventos

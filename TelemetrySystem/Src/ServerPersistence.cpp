@@ -1,15 +1,16 @@
 #include "ServerPersistence.h"
 
-ServerPersistence::ServerPersistence(std::string IP, std::string port) : Persistence()
+ServerPersistence::ServerPersistence() : Persistence()
 {
-    _IP = IP;
-    _port = port;
     _socket = INVALID_SOCKET;
     _data = nullptr;
 }
 
-bool ServerPersistence::Init()
+bool ServerPersistence::Init(std::string IP, std::string port)
 {
+    _IP = IP;
+    _port = port;
+
     int iResult = WSAStartup(MAKEWORD(2, 2), _data); //El parámetro MAKEWORD(2,2) realiza una solicitud para la versión 2.2 de Winsock en el sistema
     if (iResult != 0) {
         printf("WSAStartup failed: %d\n", iResult);

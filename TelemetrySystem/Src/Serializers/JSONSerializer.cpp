@@ -1,8 +1,8 @@
 #include "JSONSerializer.h"
 
-const std::string JSONSerializer::init(std::nullptr_t dummy, ...) {
+void JSONSerializer::init(std::nullptr_t dummy, ...) {
 	/// El serializador de JSON no necesita que le pasemos ningun argumento.
-    return "[";
+    _initialWrite = "[";
 }
 
 void JSONSerializer::openEvent() {
