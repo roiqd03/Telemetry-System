@@ -1,7 +1,14 @@
 #include "CSVSerializer.h"
+#include <cstdarg>
 
-const std::string CSVSerializer::init() {
-	// Init no tiene que hacer nada, puesto que para ahorrarnos problemas, el CSV no va a tener cabecera, no tiene que escribir nada.
+const std::string CSVSerializer::init(std::nullptr_t dummy, ...) {
+    va_list args;
+    va_start(args, dummy);
+    _totalHeaderNum = va_arg(args, int);
+    va_end(args);
+
+    if(_totalHeaderNum > 0) _definedHeader = true;
+
 	return "";
 }
 
@@ -26,7 +33,7 @@ void CSVSerializer::closeObject() {
 const std::string CSVSerializer::dump() {
 	std::string s = "";
 	for (int i = 0; i < _lines.size(); ++i) {
-		std::vector<std::pair<bool, int>> tmp(_headers.size(), {false, -1});
+		std::vector<std::pair<bool, int>> tmp(_definedHeader ? _totalHeaderNum : _headers.size(), {false, -1});
 		for (int j = 0; j < _lines[i].size(); ++j) {
 			tmp[_headerOrder[_lines[i][j].first]] = { true, j };
 		}

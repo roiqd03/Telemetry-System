@@ -17,7 +17,7 @@ private:
 
 	std::deque<nlohmann::json> _objectStack;
 
-	const std::string init() override;
+	const std::string init(std::nullptr_t dummy, ...) override;
 
 	void openEvent() override;
 

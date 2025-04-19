@@ -16,7 +16,7 @@ public:
 	/// @tparam T Cualquier clase basica de C++
 	/// @param value Valor a serializar
 	/// @param name Nombre de la variable
-	template <class T, std::convertible_to<std::string> S> 
+	template <class T, std::convertible_to<std::string> S>
 	requires std::is_arithmetic_v<std::remove_cvref_t<T>> || std::is_same_v<std::remove_cvref_t<T>, std::string>
 	void serialize(T&& value, S&& name) {
 		serialize_impl(std::forward<T>(value), std::forward<S>(name));
@@ -30,7 +30,10 @@ public:
 	virtual void closeObject() = 0;
 protected:
 	/// @brief Inicializa el serializador
-	virtual const std::string init() = 0;
+	/// @param dummy Es posible que haya serializadores que necesiten parametros de entrada, asi que,
+	/// como no sabemos que va a necesitar cada uno, los declaramos como argumentos variables. El primer
+	/// valor siempre tiene que ser nullptr (un valor dummy que no queremos).
+	virtual const std::string init(std::nullptr_t dummy, ...) = 0;
 
 	/// @brief Inicializa un evento
 	virtual void openEvent() = 0;
@@ -77,4 +80,3 @@ protected:
 	/// @param name Nombre de la variable.
 	virtual void serialize_impl(const std::string& value, const std::string& name) = 0;
 };
-

@@ -1,10 +1,12 @@
 #include "Persistence.h"
 #include "ISerializer.h"
 #include "Serializers/JSONSerializer.h"
+#include "Serializers/CSVSerializer.h"
 
 Persistence::Persistence() : eventsQueue(), mutex(), mutexCondition()
 {
-	_serializer = new JSONSerializer();
+	_serializer = new JSONSerializer(nullptr);
+	//_serializer = new CSVSerializer(nullptr, /*numero de elementos totales de la cabecera*/);
 }
 
 Persistence::~Persistence() {
