@@ -10,7 +10,7 @@ class Persistence
 {
 public:
 	Persistence();
-	~Persistence();
+	virtual ~Persistence();
 	void QueueEvent(const TrackerEvent& trackerEvent);
 	void ForceFlush(); //Para forzar un flush en momentos concretos
 	void SetSerializer(ISerializer* serializer);

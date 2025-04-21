@@ -12,6 +12,7 @@ class ISerializer {
 	friend class Persistence;
 public:
 
+	virtual ~ISerializer() = default;
 	/// @brief Permite la serializacion de cualquier tipo de variable basica.
 	/// @tparam T Cualquier clase basica de C++
 	/// @param value Valor a serializar
