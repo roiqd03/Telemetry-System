@@ -14,6 +14,7 @@ void TrackerEvent::serialize(ISerializer* serializer) {
 	serializer->serialize(gameID, "gameID");
 	serializer->serialize(playerID, "playerID");
 	serializer->serialize(sessionID, "sessionID");
+	serializer->serialize(eventType, "eventType");
 }
 
 void TrackerEvent::SetCommonProperties(int timestamp, const std::string& gameID, const std::string& playerID, const std::string& sessionID)
