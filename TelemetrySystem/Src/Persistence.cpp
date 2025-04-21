@@ -14,7 +14,7 @@ Persistence::~Persistence() {
 	_serializer = nullptr;
 }
 
-void Persistence::QueueEvent(const TrackerEvent& trackerEvent)
+void Persistence::QueueEvent(TrackerEvent* trackerEvent)
 {
 	std::lock_guard<std::mutex> lock(mutex);
 	eventsQueue.push(trackerEvent);
@@ -47,7 +47,8 @@ const std::string Persistence::SuddenSerialization()
 	int total = eventsQueue.size();
 	for (int i = 0; i < total; ++i) {
 		_serializer->openEvent();
-		eventsQueue.front().serialize(_serializer);
+		eventsQueue.front()->serialize(_serializer);
+		delete eventsQueue.front();
 		eventsQueue.pop();
 	}
 	return _serializer->dump();

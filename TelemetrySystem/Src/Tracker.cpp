@@ -133,5 +133,10 @@ void Tracker::TrackEvent(TrackerEvent* trackerEvent)
 {
 	trackerEvent->SetCommonProperties(std::chrono::duration_cast<std::chrono::milliseconds>(
 		p1.time_since_epoch()).count(), _gameID, _playerID, _sessionID);
-	if (_persistence) _persistence->QueueEvent(*trackerEvent);
+	if (_persistence) _persistence->QueueEvent(trackerEvent);
+}
+
+void Tracker::Flush()
+{
+	_persistence->ForceFlush();
 }

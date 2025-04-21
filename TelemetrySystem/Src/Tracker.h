@@ -27,10 +27,12 @@ public:
 	enum SerializerTypes { S_JSON, S_CSV };
 
 	void TrackEvent(TrackerEvent* trackerEvent);
-	
+	void Flush();
+
 	static InitValues Init(const std::string& gameID, PersistenceTypes persistenceType, SerializerTypes serializerType);
 	static void End();
 	static Tracker* Instance();
+	
 private:
 	Tracker() {};
 	InitValues init(const std::string& gameID, PersistenceTypes persistenceType, SerializerTypes serializerType);

@@ -3,6 +3,7 @@
 
 TrackerEvent::TrackerEvent(const std::string& eventType)
 {
+	this->eventType = eventType;
 }
 
 TrackerEvent::~TrackerEvent()
