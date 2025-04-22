@@ -40,13 +40,22 @@ ISerializer* Persistence::GetSerializer()
 	return _serializer;
 }
 
+void Persistence::DeleteEvents()
+{
+	for (auto elem = _eventsToDelete.begin(); elem != _eventsToDelete.end(); ++elem) {
+		delete (*elem);
+	}
+
+	_eventsToDelete.clear();
+}
+
 const std::string Persistence::SuddenSerialization()
 {
 	int total = eventsQueue->size();
 	for (int i = 0; i < total; ++i) {
 		_serializer->openEvent();
 		eventsQueue->front()->serialize(_serializer);
-		delete eventsQueue->front();
+		_eventsToDelete.insert(eventsQueue->front());
 		eventsQueue->pop();
 	}
 	return _serializer->dump();

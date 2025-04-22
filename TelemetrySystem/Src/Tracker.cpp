@@ -148,11 +148,8 @@ void Tracker::TrackEvent(TrackerEvent* trackerEvent)
 	}
 	if (deleteEvent) 
 		delete trackerEvent;
-}
 
-void Tracker::Flush()
-{
-	_persistence->ForceFlush();
+	_persistence->DeleteEvents();
 }
 
 void Tracker::AddTrackerAsset(ITrackerAsset* trackerAsset)

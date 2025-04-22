@@ -27,7 +27,6 @@ public:
 	enum SerializerTypes { S_JSON, S_CSV };
 
 	void TrackEvent(TrackerEvent* trackerEvent);
-	void Flush();
 	void AddTrackerAsset(ITrackerAsset* trackerAsset);
 
 	static InitValues Init(const std::string& gameID, PersistenceTypes persistenceType, SerializerTypes serializerType);
