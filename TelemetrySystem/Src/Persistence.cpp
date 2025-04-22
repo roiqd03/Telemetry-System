@@ -27,7 +27,7 @@ bool Persistence::QueueEvent(TrackerEvent* trackerEvent)
 
 bool Persistence::ForceFlush()
 {
-	if (eventsQueue->empty()) return;
+	if (eventsQueue->empty()) return true;
 	return Flush();
 }
 

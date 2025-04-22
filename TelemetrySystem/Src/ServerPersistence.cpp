@@ -63,7 +63,7 @@ void ServerPersistence::Release()
 
 bool ServerPersistence::Flush()
 {
-    if (_socket == INVALID_SOCKET) return;
+    if (_socket == INVALID_SOCKET) return false;
     std::string s = SuddenSerialization();
     int length = s.length();
     int iResult = send(_socket, s.c_str(), length, 0);
