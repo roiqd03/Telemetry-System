@@ -20,12 +20,32 @@ bool FilePersistence::Init(std::string fileDirectory)
 void FilePersistence::Release()
 {
 	std::string s = _serializer->release();
-	fwrite(s.c_str(), s.length(), 1, _outfile);
-	fclose(_outfile);
+	if (errno == ENOMEM || errno == ENOSPC) {
+		fclose(_outfile);
+		remove(_fileDirectory.c_str());
+	}
+	else {
+		size_t length = s.length();
+		size_t written = fwrite(s.c_str(), length, 1, _outfile);
+		fclose(_outfile);
+		if (written != length) {
+			if (errno == ENOMEM || errno == ENOSPC) {
+				remove(_fileDirectory.c_str());
+			}
+		}
+	}
+
 }
 
-void FilePersistence::Flush()
+bool FilePersistence::Flush()
 {
 	std::string s = SuddenSerialization();
-	fwrite(s.c_str(), s.length(), 1, _outfile);
+	size_t length = s.length();
+	size_t written = fwrite(s.c_str(), length, 1, _outfile);
+	if (written != length) {
+		if (errno == ENOMEM || errno == ENOSPC) {
+			return false;
+		}
+	}
+	return true;
 }

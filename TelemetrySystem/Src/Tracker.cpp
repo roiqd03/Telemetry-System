@@ -140,13 +140,18 @@ void Tracker::TrackEvent(TrackerEvent* trackerEvent)
 	trackerEvent->SetCommonProperties(std::chrono::duration_cast<std::chrono::milliseconds>(
 		p1.time_since_epoch()).count(), _gameID, _playerID, _sessionID);
 
-	bool deleteEvent = true;
+	bool validEvent = false;
 	for (auto trackerAsset : _activeTrackers) {
 		if (trackerAsset->accept(trackerEvent)) {
-			if (trackerAsset->process(_persistence, trackerEvent)) deleteEvent = false;
+			validEvent = true;
+			if (!trackerAsset->process(_persistence, trackerEvent)) {
+				End();
+				return;
+			}
 		}
 	}
-	if (deleteEvent) 
+
+	if (!validEvent)
 		delete trackerEvent;
 
 	_persistence->DeleteEvents();

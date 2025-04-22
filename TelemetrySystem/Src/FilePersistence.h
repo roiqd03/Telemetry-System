@@ -8,7 +8,7 @@ public:
 	bool Init(std::string fileDirectory);
 	void Release() override;
 protected:
-	void Flush() override;
+	bool Flush() override;
 	std::string _fileDirectory;
 	FILE* _outfile;
 };

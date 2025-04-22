@@ -11,15 +11,15 @@ class Persistence
 public:
 	Persistence();
 	virtual ~Persistence();
-	void QueueEvent(TrackerEvent* trackerEvent);
-	void ForceFlush(); //Para forzar un flush en momentos concretos
+	bool QueueEvent(TrackerEvent* trackerEvent);
+	bool ForceFlush(); //Para forzar un flush en momentos concretos
 	void SetSerializer(ISerializer* serializer);
 	ISerializer* GetSerializer();
 	virtual void Release() = 0;
 	void DeleteEvents();
 protected:
 	const std::string SuddenSerialization(); //Serializa de golpe todos los eventos
-	virtual void Flush() = 0;
+	virtual bool Flush() = 0;
 	circular_buffer<TrackerEvent*>* eventsQueue;
 	uint32_t numBeforeFlush = 100; // El número de eventos encolados antes de hacer el flush
 	ISerializer* _serializer = nullptr;

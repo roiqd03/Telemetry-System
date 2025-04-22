@@ -12,7 +12,7 @@ public:
 	bool Init(std::string IP, std::string port);
 	void Release() override;
 protected:
-	void Flush() override;
+	bool Flush() override;
 	SOCKET _socket;
 	WSADATA* _data;
 	std::string _IP, _port;

@@ -61,16 +61,18 @@ void ServerPersistence::Release()
     WSACleanup();
 }
 
-void ServerPersistence::Flush()
+bool ServerPersistence::Flush()
 {
     if (_socket == INVALID_SOCKET) return;
     std::string s = SuddenSerialization();
     int length = s.length();
     int iResult = send(_socket, s.c_str(), length, 0);
     if (iResult == -1) {
-        printf("Something has gone wrong");
+        /*printf("Something has gone wrong");
         closesocket(_socket);
         _socket = INVALID_SOCKET;
-        WSACleanup();
+        WSACleanup();*/
+        return false;
     }
+    return true;
 }

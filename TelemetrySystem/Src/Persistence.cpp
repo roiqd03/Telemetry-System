@@ -16,18 +16,19 @@ Persistence::~Persistence() {
 	delete eventsQueue;
 }
 
-void Persistence::QueueEvent(TrackerEvent* trackerEvent)
+bool Persistence::QueueEvent(TrackerEvent* trackerEvent)
 {
 	if(eventsQueue->size() == 0 || (eventsQueue->size() > 0 && eventsQueue->front() != trackerEvent)) eventsQueue->push(trackerEvent);
 	if (eventsQueue->full()) {
-		Flush();
+		return Flush();
 	}
+	return true;
 }
 
-void Persistence::ForceFlush()
+bool Persistence::ForceFlush()
 {
 	if (eventsQueue->empty()) return;
-	Flush();
+	return Flush();
 }
 
 void Persistence::SetSerializer(ISerializer* serializer)
