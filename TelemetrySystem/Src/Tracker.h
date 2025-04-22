@@ -23,11 +23,12 @@ struct InitValues {
 class Tracker
 {
 public:
-	enum PersistenceTypes { P_FILE, P_SERVER };
+	enum PersistenceTypes { P_FILE };
 	enum SerializerTypes { S_JSON, S_CSV };
 
 	void TrackEvent(TrackerEvent* trackerEvent);
 	void Flush();
+	void AddTrackerAsset(ITrackerAsset* trackerAsset);
 
 	static InitValues Init(const std::string& gameID, PersistenceTypes persistenceType, SerializerTypes serializerType);
 	static void End();
@@ -40,8 +41,7 @@ private:
 	bool createPersistence(PersistenceTypes type);
 	bool createSerializer(SerializerTypes type);
 
-	Persistence* _persistence;
-	// A priori diria que esto no es necesario
+	Persistence* _persistence = nullptr;
 	std::list<ITrackerAsset*> _activeTrackers;
 
 	std::string _gameID;

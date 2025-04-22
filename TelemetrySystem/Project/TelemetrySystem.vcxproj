@@ -27,6 +27,7 @@
     <ClCompile Include="..\Src\Serializers\JSONSerializer.cpp" />
     <ClCompile Include="..\Src\ServerPersistence.cpp" />
     <ClCompile Include="..\Src\Tracker.cpp" />
+    <ClCompile Include="..\Src\TrackerAssets\DefaultTrackerAsset.cpp" />
     <ClCompile Include="..\Src\TrackerEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -39,6 +40,7 @@
     <ClInclude Include="..\Src\Serializers\JSONSerializer.h" />
     <ClInclude Include="..\Src\ServerPersistence.h" />
     <ClInclude Include="..\Src\Tracker.h" />
+    <ClInclude Include="..\Src\TrackerAssets\DefaultTrackerAsset.h" />
     <ClInclude Include="..\Src\TrackerEvent.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -137,7 +139,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)/Dependencies/json/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Dependencies/json/include/;$(SolutionDir)/Src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -153,7 +155,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)/Dependencies/json/include/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)/Dependencies/json/include/;$(SolutionDir)/Src</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

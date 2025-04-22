@@ -2,6 +2,8 @@
 #include "TrackerEvent.h"
 #include "FilePersistence.h"
 #include "ServerPersistence.h"
+#include "ITrackerAsset.h"
+#include "TrackerAssets/DefaultTrackerAsset.h"
 #include "Serializers/JSONSerializer.h"
 #include "Serializers/CSVSerializer.h"
 
@@ -53,6 +55,7 @@ InitValues Tracker::init(const std::string& gameID, PersistenceTypes persistence
 	if (!createSerializer(serializerType))
 		return { false, nullptr, nullptr };
 
+	_activeTrackers.push_back(new DefaultTrackerAsset());
 
 	// crear primer evento de inicio de juego y persistirlo
 	return { true, _persistence, _persistence->GetSerializer() };
@@ -60,6 +63,9 @@ InitValues Tracker::init(const std::string& gameID, PersistenceTypes persistence
 
 void Tracker::end()
 {
+	for (auto trackerAsset = _activeTrackers.begin(); trackerAsset != _activeTrackers.end(); ++trackerAsset) {
+		delete (*trackerAsset);
+	}
 	if (_persistence != nullptr)
 		_persistence->Release();
 		delete _persistence;
@@ -72,9 +78,9 @@ bool Tracker::createPersistence(PersistenceTypes type)
 	case Tracker::P_FILE:
 		_persistence = new FilePersistence();
 		break;
-	case Tracker::P_SERVER:
+	/*case Tracker::P_SERVER:
 		_persistence = new ServerPersistence();
-		break;
+		break;*/
 	default:
 		return false;
 	}
@@ -133,10 +139,23 @@ void Tracker::TrackEvent(TrackerEvent* trackerEvent)
 {
 	trackerEvent->SetCommonProperties(std::chrono::duration_cast<std::chrono::milliseconds>(
 		p1.time_since_epoch()).count(), _gameID, _playerID, _sessionID);
-	if (_persistence) _persistence->QueueEvent(trackerEvent);
+
+	bool deleteEvent = true;
+	for (auto trackerAsset : _activeTrackers) {
+		if (trackerAsset->accept(trackerEvent)) {
+			if (trackerAsset->process(_persistence, trackerEvent)) deleteEvent = false;
+		}
+	}
+	if (deleteEvent) 
+		delete trackerEvent;
 }
 
 void Tracker::Flush()
 {
 	_persistence->ForceFlush();
+}
+
+void Tracker::AddTrackerAsset(ITrackerAsset* trackerAsset)
+{
+	_activeTrackers.push_back(trackerAsset);
 }

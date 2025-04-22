@@ -18,7 +18,7 @@ Persistence::~Persistence() {
 
 void Persistence::QueueEvent(TrackerEvent* trackerEvent)
 {
-	eventsQueue->push(trackerEvent);
+	if(eventsQueue->size() == 0 || (eventsQueue->size() > 0 && eventsQueue->front() != trackerEvent)) eventsQueue->push(trackerEvent);
 	if (eventsQueue->full()) {
 		Flush();
 	}
@@ -46,6 +46,7 @@ const std::string Persistence::SuddenSerialization()
 	for (int i = 0; i < total; ++i) {
 		_serializer->openEvent();
 		eventsQueue->front()->serialize(_serializer);
+		delete eventsQueue->front();
 		eventsQueue->pop();
 	}
 	return _serializer->dump();
