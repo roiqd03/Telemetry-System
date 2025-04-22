@@ -16,6 +16,8 @@ public:
 private:
 	int _createdObjects = 0;
 
+	bool _hasDumpedOnce = false;
+
 	std::deque<nlohmann::json> _objectStack;
 
 

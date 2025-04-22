@@ -29,8 +29,10 @@ void JSONSerializer::closeObject() {
 
 const std::string JSONSerializer::dump() {
 	std::string s = "";
+	if(_hasDumpedOnce) s += ",";
 	for (int i = 0; i < _objectStack.size(); ++i) {
 		s += _objectStack[i].dump();
+		_hasDumpedOnce = true;
 		if (i != _objectStack.size() - 1) s += ",";
 	}
 	_objectStack.clear();
