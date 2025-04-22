@@ -63,12 +63,16 @@ InitValues Tracker::init(const std::string& gameID, PersistenceTypes persistence
 
 void Tracker::end()
 {
-	for (auto trackerAsset = _activeTrackers.begin(); trackerAsset != _activeTrackers.end(); ++trackerAsset) {
-		delete (*trackerAsset);
-	}
+	TrackEvent(new TrackerEvent(END_EVENT_NAME));
+
 	if (_persistence != nullptr)
 		_persistence->Release();
 		delete _persistence;
+	
+	for (auto trackerAsset = _activeTrackers.begin(); trackerAsset != _activeTrackers.end(); ++trackerAsset) {
+		delete (*trackerAsset);
+	}
+	_activeTrackers.clear();
 }
 
 bool Tracker::createPersistence(PersistenceTypes type)
@@ -160,4 +164,9 @@ void Tracker::TrackEvent(TrackerEvent* trackerEvent)
 void Tracker::AddTrackerAsset(ITrackerAsset* trackerAsset)
 {
 	_activeTrackers.push_back(trackerAsset);
+}
+
+void Tracker::Start()
+{
+	TrackEvent(new TrackerEvent(START_EVENT_NAME));
 }

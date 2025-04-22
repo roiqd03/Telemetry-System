@@ -8,6 +8,8 @@
 #include <chrono>
 
 #define PLAYER_ID_LENGTH 64
+#define START_EVENT_NAME "GameStart"
+#define END_EVENT_NAME "GameEnd"
 
 class TrackerEvent;
 class Persistence;
@@ -28,13 +30,15 @@ public:
 
 	void TrackEvent(TrackerEvent* trackerEvent);
 	void AddTrackerAsset(ITrackerAsset* trackerAsset);
+	void Start();
 
 	static InitValues Init(const std::string& gameID, PersistenceTypes persistenceType, SerializerTypes serializerType);
 	static void End();
 	static Tracker* Instance();
 	
 private:
-	Tracker() {};
+	Tracker() = default;
+	~Tracker() = default;
 	InitValues init(const std::string& gameID, PersistenceTypes persistenceType, SerializerTypes serializerType);
 	void end();
 	bool createPersistence(PersistenceTypes type);
