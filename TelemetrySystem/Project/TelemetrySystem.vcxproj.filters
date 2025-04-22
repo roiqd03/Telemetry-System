@@ -68,7 +68,10 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\Src\Serializers\CSVSerializer.h">
-        <Filter>Serializers</Filter>
+      <Filter>Serializers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\CircularQueue.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
