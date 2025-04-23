@@ -22,7 +22,6 @@
     <ClCompile Include="..\Src\FilePersistence.cpp" />
     <ClCompile Include="..\Src\ITrackerAsset.cpp" />
     <ClCompile Include="..\Src\Persistence.cpp" />
-    <ClCompile Include="..\Src\main.cpp" />
     <ClCompile Include="..\Src\Serializers\CSVSerializer.cpp" />
     <ClCompile Include="..\Src\Serializers\JSONSerializer.cpp" />
     <ClCompile Include="..\Src\ServerPersistence.cpp" />
