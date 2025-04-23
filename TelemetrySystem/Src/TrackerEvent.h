@@ -18,11 +18,11 @@ public:
 
 	inline const std::string GetEventType() { return eventType; }
 
-	void SetCommonProperties(int timestamp, const std::string& gameID, const std::string& playerID, const std::string& sessionID);
+	void SetCommonProperties(long long timestamp, const std::string& gameID, const std::string& playerID, const std::string& sessionID);
 protected:
 	std::string eventType;
 
-	int timestamp;
+	long long timestamp;
 	std::string gameID;
 	std::string playerID;
 	std::string sessionID;
