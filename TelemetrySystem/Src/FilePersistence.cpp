@@ -9,7 +9,7 @@ FilePersistence::FilePersistence() : Persistence()
 
 bool FilePersistence::Init(std::string fileDirectory)
 {
-	_fileDirectory = fileDirectory;
+	_fileDirectory = fileDirectory.append(_serializer->_fileExtension);
 	fopen_s(&_outfile, _fileDirectory.c_str(), "a");
 	if (_outfile == nullptr) return false;
 	std::string s = _serializer->_initialWrite;

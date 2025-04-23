@@ -15,6 +15,8 @@
 /// esten vacias en las que no se usan, o, en nuestro caso, llamar a dummy pasandole el numero de parametros totales que va a tener la cabecera
 class CSVSerializer : public ISerializer {
 public:
+	CSVSerializer();
+
 	void openObject(const std::string& name) override;
 
 	void closeObject() override;

@@ -22,6 +22,11 @@ const std::string CSVSerializer::release() {
 	return "";
 }
 
+CSVSerializer::CSVSerializer() : ISerializer()
+{
+	_fileExtension = ".csv";
+}
+
 void CSVSerializer::openObject(const std::string& name) {
 	// CSV no tiene objetos complejos, por lo que estas instrucciones simplemente no haran nada. En otros lenguajes, como JSON o YAML, crearan un objeto.
 }

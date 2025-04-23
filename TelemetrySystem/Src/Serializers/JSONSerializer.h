@@ -8,6 +8,8 @@
 /// @brief Serializador a archivos JSON
 class JSONSerializer : public ISerializer {
 public:
+	JSONSerializer();
+
 	void openObject(const std::string& name) override;
 
 	void closeObject() override;

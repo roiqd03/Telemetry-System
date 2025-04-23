@@ -13,6 +13,11 @@ const std::string JSONSerializer::release() {
 	return "]";
 }
 
+JSONSerializer::JSONSerializer() : ISerializer()
+{
+	_fileExtension = ".json";
+}
+
 void JSONSerializer::openObject(const std::string& name) {
 	nlohmann::json::object_t obj = nlohmann::json::object();
 	_objectStack.back()[name] = obj;

@@ -11,7 +11,7 @@ class ISerializer {
 	friend class FilePersistence;
 	friend class Persistence;
 public:
-
+	ISerializer() = default;
 	virtual ~ISerializer() = default;
 	/// @brief Permite la serializacion de cualquier tipo de variable basica.
 	/// @tparam T Cualquier clase basica de C++
@@ -37,6 +37,7 @@ public:
 	virtual void init(std::nullptr_t dummy, ...) = 0;
 protected:
 	std::string _initialWrite;
+	std::string _fileExtension;
 
 	/// @brief Inicializa un evento
 	virtual void openEvent() = 0;
