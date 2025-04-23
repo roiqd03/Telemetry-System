@@ -14,6 +14,7 @@ bool FilePersistence::Init(std::string fileDirectory)
 	if (_outfile == nullptr) return false;
 	std::string s = _serializer->_initialWrite;
 	fwrite(s.c_str(), s.length(), 1, _outfile);
+	_initialized = true;
 	return true;
 }
 
@@ -24,7 +25,7 @@ void FilePersistence::Release()
 		fclose(_outfile);
 		remove(_fileDirectory.c_str());
 	}
-	else {
+	else if (_initialized){
 		size_t length = s.length();
 		size_t written = fwrite(s.c_str(), length, 1, _outfile);
 		fclose(_outfile);

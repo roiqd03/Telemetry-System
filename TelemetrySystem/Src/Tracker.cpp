@@ -57,9 +57,8 @@ InitValues Tracker::init(const std::string& gameID, PersistenceTypes persistence
 
 void Tracker::end()
 {
-	TrackEvent(new TrackerEvent(END_EVENT_NAME));
-
 	if (_persistence != nullptr)
+		if(_persistence->IsInitialized()) TrackEvent(new TrackerEvent(END_EVENT_NAME));
 		_persistence->Release();
 		delete _persistence;
 	

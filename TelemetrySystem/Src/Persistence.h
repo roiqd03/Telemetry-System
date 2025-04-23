@@ -17,6 +17,7 @@ public:
 	ISerializer* GetSerializer();
 	virtual void Release() = 0;
 	void DeleteEvents();
+	inline bool IsInitialized() { return _initialized; }
 protected:
 	const std::string SuddenSerialization(); //Serializa de golpe todos los eventos
 	virtual bool Flush() = 0;
@@ -24,5 +25,6 @@ protected:
 	uint32_t numBeforeFlush = 100; // El número de eventos encolados antes de hacer el flush
 	ISerializer* _serializer = nullptr;
 	std::unordered_set<TrackerEvent*> _eventsToDelete;
+	bool _initialized = false;
 };
 

@@ -52,6 +52,7 @@ bool ServerPersistence::Init(std::string IP, std::string port)
     }
 
     freeaddrinfo(result);
+    _initialized = true;
     return true;
 }
 
