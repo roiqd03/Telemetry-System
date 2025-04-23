@@ -34,6 +34,11 @@ public:
 	static InitValues Init(const std::string& gameID, PersistenceTypes persistenceType, SerializerTypes serializerType);
 	static void End();
 	static Tracker* Instance();
+
+	/// Devuelve el SessionID generado en Init()
+	const std::string& GetSessionID() const {
+		return _sessionID;
+	}
 	
 private:
 	Tracker() = default;
