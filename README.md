@@ -14,14 +14,14 @@ if (init.couldInitialize) { // if it could not initialize, it is auto deleted
 	bool canInitialize = static_cast<FilePersistence*>(init.persistence)->Init(filename); // initialize persistence with its parameters
 
 	if (canInitialize) { // if persistence is initialize, you should create the tracker assets
-        // Tracker assets to accept events and queue events. DefaultTrackerAsset.h and .cpp is an example, used in order to accept GameStart and GameEnd events.
+        	// Tracker assets to accept events and queue events. DefaultTrackerAsset.h and .cpp is an example, used in order to accept GameStart and GameEnd events.
 		ProgressionTracker* progressionTracker = new ProgressionTracker();
 		Tracker::Instance()->AddTrackerAsset(progressionTracker);
 
 		GameEventTracker* gameTracker = new GameEventTracker();
 		Tracker::Instance()->AddTrackerAsset(gameTracker);
 
-        // starts the tracker with the event GameStart
+        	// starts the tracker with the event GameStart
 		Tracker::Instance()->Start();
 	}
 	else { // if persistence could not initialize, then delete the tracker
@@ -34,7 +34,7 @@ if (init.couldInitialize) { // if it could not initialize, it is auto deleted
 
 ```
 if(Tracker::Instance()){
-    LevelStartEvent* levelStart = new LevelStartEvent(_currentMap);
+    	LevelStartEvent* levelStart = new LevelStartEvent(_currentMap);
 	Tracker::Instance()->TrackEvent(levelStart);
 }
 ```
