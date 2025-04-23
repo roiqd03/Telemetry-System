@@ -16,34 +16,28 @@ InitValues Tracker::init(const std::string& gameID, PersistenceTypes persistence
 	
 
 	// obtener numero de serie
-	system("wmic bios get serialnumber > sn.txt");
-	wchar_t playerID[PLAYER_ID_LENGTH];
-
-	FILE* fp = nullptr;
-	if (fopen_s(&fp, "sn.txt", "r, ccs=UTF-8") != 0) {
-		remove("sn.txt");
-		return {false, nullptr, nullptr};
-	}
-	fgetws(playerID, PLAYER_ID_LENGTH, fp); // linea no relevante
-	fgetws(playerID, PLAYER_ID_LENGTH, fp); // numero de serie
-
-	// Antes de cerrar, compruebo si hubo algun error
-	if (ferror(fp) != 0) {
-		fclose(fp);
-		remove("sn.txt");
-		return { false, nullptr, nullptr };
-	}
+	FILE* systemCall = _popen("wmic baseboard get serialnumber", "r");
+	if (!systemCall) return { false, nullptr, nullptr };
 	
-	fclose(fp);          
-	// borramos el archivo
-	remove("sn.txt");
+	char playerID[PLAYER_ID_LENGTH];
+
+	fgets(playerID, PLAYER_ID_LENGTH, systemCall); // linea no relevante
+	fgets(playerID, PLAYER_ID_LENGTH, systemCall); // numero de serie
+	bool found = false;
+	for (int i = 0; i < PLAYER_ID_LENGTH && !found; ++i) {
+		if (playerID[i] == ' ') {
+			found = true;
+			playerID[i] = '\0';
+		}
+	}
+
+	_pclose(systemCall);
 
 	std::string initialTimestamp = std::to_string(std::chrono::duration_cast<std::chrono::milliseconds>(
 		p1.time_since_epoch()).count());
 
 	// setteamos el resto de variables con la informacion anterior
-	std::wstring player(playerID);
-	_playerID = std::string(player.begin(), player.end());
+	_playerID = std::string(playerID);
 	_sessionID = _playerID;
 	_sessionID.append(initialTimestamp);
 
@@ -122,6 +116,8 @@ InitValues Tracker::Init(const std::string& gameID, PersistenceTypes persistence
 			_instance = nullptr;
 		}
 	}
+	else ret = { false, nullptr, nullptr };
+	
 	return ret;
 }
 

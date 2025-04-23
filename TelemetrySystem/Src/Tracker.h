@@ -4,7 +4,6 @@
 #include <string>
 #include <stdio.h>
 #include <stdlib.h>
-#include <wchar.h>
 #include <chrono>
 
 #define PLAYER_ID_LENGTH 64
